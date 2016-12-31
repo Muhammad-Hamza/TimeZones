@@ -1,5 +1,6 @@
 package com.example.hamza.timezones;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,7 +14,26 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
 
-public class TimeFragment extends Fragment {
+public class TimeFragment extends Fragment  {
+
+
+    public interface onSomeEventListener {
+
+        public void someEvent(String s);
+    }
+onSomeEventListener someEventListener;
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+
+
+        try {
+            someEventListener = (onSomeEventListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement onSomeEventListener");
+        }
+    }
 
 AutoCompleteTextView countries;
     Button addButton;
@@ -36,6 +56,9 @@ AutoCompleteTextView countries;
             @Override
             public void onClick(View v) {
               final String selectedregion = countries.getText().toString();
+                someEventListener.someEvent(selectedregion);
+                getActivity().onBackPressed();
+
             }
         });
 
@@ -45,5 +68,6 @@ AutoCompleteTextView countries;
 
         return view;
     }
+
 
 }
