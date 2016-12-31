@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">TimeZones</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+
+    <string name="addTimeZone">Add a Time Zone</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="timezone">Select Country</string>
+</resources>
