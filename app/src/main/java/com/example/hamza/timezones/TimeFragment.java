@@ -2,7 +2,9 @@ package com.example.hamza.timezones;
 
 import android.app.Activity;
 import android.content.Context;
+import java.util.TimeZone;
 import android.net.Uri;
+import java.util.Calendar;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -19,7 +21,7 @@ public class TimeFragment extends Fragment  {
 
     public interface onSomeEventListener {
 
-        public void someEvent(String s);
+        public String someEvent(String s);
     }
 onSomeEventListener someEventListener;
     @Override
@@ -37,8 +39,9 @@ onSomeEventListener someEventListener;
 
 AutoCompleteTextView countries;
     Button addButton;
-    String[] allCountries = {"Pakistan","Germany","England","Indonesia","Australia","India","China","United Arab Emirates"
-    ,"Russia","Iran"};
+    String[] allCountries = TimeZone.getAvailableIDs();
+            //{"Pakistan","Germany","England","Indonesia","Australia","India","China","United Arab Emirates"
+   // ,"Russia","Iran"};
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -50,6 +53,7 @@ AutoCompleteTextView countries;
         addButton = (Button) view.findViewById(R.id.addbutton);
 
         countries.setAdapter(new ArrayAdapter<String>(getActivity().getApplicationContext(),android.R.layout.select_dialog_item,allCountries));
+
 
 
         addButton.setOnClickListener(new View.OnClickListener() {
