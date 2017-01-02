@@ -29,6 +29,15 @@
     android:id="@+id/frgmnt">
 
 </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tz"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tzname"/>
 </android.support.design.widget.CoordinatorLayout>
 
 

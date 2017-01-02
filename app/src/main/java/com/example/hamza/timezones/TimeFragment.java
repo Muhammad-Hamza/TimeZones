@@ -2,6 +2,8 @@ package com.example.hamza.timezones;
 
 import android.app.Activity;
 import android.content.Context;
+
+import java.util.Date;
 import java.util.TimeZone;
 import android.net.Uri;
 import java.util.Calendar;
@@ -18,10 +20,13 @@ import android.widget.Button;
 
 public class TimeFragment extends Fragment  {
 
+    private long miliSeconds;
+    private Date resultDate;
+
 
     public interface onSomeEventListener {
 
-        public String someEvent(String s);
+        public void someEvent(Date d,String n);
     }
 onSomeEventListener someEventListener;
     @Override
@@ -60,7 +65,16 @@ AutoCompleteTextView countries;
             @Override
             public void onClick(View v) {
               final String selectedregion = countries.getText().toString();
-                someEventListener.someEvent(selectedregion);
+                TimeZone tz = TimeZone.getTimeZone(selectedregion);
+                String timeZoneName = tz.getDisplayName();
+                int TimeZoneOffset = tz.getRawOffset()
+                        / (60 * 1000);
+                int hrs = TimeZoneOffset / 60;
+                int mins = TimeZoneOffset % 60;
+                miliSeconds = miliSeconds + tz.getRawOffset();
+                resultDate = new Date(miliSeconds);
+
+                someEventListener.someEvent(resultDate,timeZoneName);
                 getActivity().onBackPressed();
 
             }
