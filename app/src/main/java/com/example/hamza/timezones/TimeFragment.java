@@ -3,12 +3,14 @@ package com.example.hamza.timezones;
 import android.app.Activity;
 import android.content.Context;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 import android.net.Uri;
 import java.util.Calendar;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,17 +18,19 @@ import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.TextView;
 
 
 public class TimeFragment extends Fragment  {
 
     private long miliSeconds;
     private Date resultDate;
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
 
 
     public interface onSomeEventListener {
 
-        public void someEvent(Date d,String n);
+        public void someEvent(String t,String n,TimeZone tz);
     }
 onSomeEventListener someEventListener;
     @Override
@@ -57,6 +61,7 @@ AutoCompleteTextView countries;
         countries = (AutoCompleteTextView) view.findViewById(R.id.countryauto);
         addButton = (Button) view.findViewById(R.id.addbutton);
 
+
         countries.setAdapter(new ArrayAdapter<String>(getActivity().getApplicationContext(),android.R.layout.select_dialog_item,allCountries));
 
 
@@ -64,6 +69,8 @@ AutoCompleteTextView countries;
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
               final String selectedregion = countries.getText().toString();
                 TimeZone tz = TimeZone.getTimeZone(selectedregion);
                 String timeZoneName = tz.getDisplayName();
@@ -74,7 +81,9 @@ AutoCompleteTextView countries;
                 miliSeconds = miliSeconds + tz.getRawOffset();
                 resultDate = new Date(miliSeconds);
 
-                someEventListener.someEvent(resultDate,timeZoneName);
+                String timename = sdf.format(resultDate);
+
+                someEventListener.someEvent(timename,timeZoneName,tz);
                 getActivity().onBackPressed();
 
             }

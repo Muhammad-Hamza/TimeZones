@@ -67,14 +67,14 @@ public class MainActivity extends FragmentActivity implements TimeFragment.onSom
     }
 
     @Override
-    public void someEvent(Date t,String n){
+    public void someEvent(String t,String n,TimeZone tz){
 
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frgmnt);
 
        TextView time = (TextView) findViewById(R.id.tzname);
         time.setText(n);
-        TextView zoneName = (TextView) findViewById(R.id.tz);
-        zoneName.setText(""+sdf.format(t));
+       TextView zoneName = (TextView) findViewById(R.id.tz);
+        zoneName.setText(t);
 
 
 
@@ -100,20 +100,6 @@ public class MainActivity extends FragmentActivity implements TimeFragment.onSom
 
 
 
-
-public void Arraylist(String time,String zone)
-{
-    ArrayList<TimeDisplay> timezones = new ArrayList<TimeDisplay>();
-
-            timezones.add(new TimeDisplay("time","zone"));
-
-
-
-
-
-
-
-}
 
 
 
