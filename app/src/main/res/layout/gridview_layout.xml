@@ -21,7 +21,7 @@
     android:layout_height="wrap_content"
     android:textSize="15sp"
     android:layout_marginLeft="13dp"
-    android:id="@+id/Date"
+    android:id="@+id/date"
 
 
     />
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:textSize="15sp"
         android:layout_marginLeft="13sp"
-        android:id="@+id/Name"/>
+        android:id="@+id/name"/>
 
 
 </LinearLayout>

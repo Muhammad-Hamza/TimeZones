@@ -29,7 +29,27 @@ public class MainActivity extends FragmentActivity implements TimeFragment.onSom
     FloatingActionButton addTimeZone ;
     private long miliSeconds;
     private Date resultdate;
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
+    SimpleDateFormat clock = new SimpleDateFormat("hh:mm a");
+    SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+    ArrayList<TimeDisplay> timeList = new ArrayList<TimeDisplay>();
+
+
+
+
+
+
+
+//ArrayList Method using to get the time,date,and region with respect to every id and add it to the list
+
+    public void arrayList(String c,String d,String n)
+    {
+
+        timeList.add(new TimeDisplay(c,d,n));
+
+        ;
+
+    }
+
 
 
     @Override
@@ -96,6 +116,8 @@ public class MainActivity extends FragmentActivity implements TimeFragment.onSom
         miliSeconds = current.getTimeInMillis();
 
         TimeZone tzCurrent = current.getTimeZone();
+        String currentName = tzCurrent.getDisplayName() ;
+
         String CurrentTimeZoneName = tzCurrent.getID();
         Calendar calTZ = new GregorianCalendar(tzCurrent);
         calTZ.setTimeInMillis(new Date().getTime());
@@ -108,11 +130,11 @@ public class MainActivity extends FragmentActivity implements TimeFragment.onSom
         cal.set(Calendar.SECOND, calTZ.get(Calendar.SECOND));
         cal.set(Calendar.MILLISECOND, calTZ.get(Calendar.MILLISECOND));
 
-        String time = sdf.format(cal.getTime());
-        TextView crrntTime = (TextView) findViewById(R.id.current);
-        crrntTime.setTextColor(Color.parseColor("#B33A3A"));
-        crrntTime.setText(sdf.format(cal.getTime()));
-        Log.d("Time Test",time);
+        String time = clock.format(cal.getTime());
+        String currentDate = date.format(cal.getTime());
+
+        arrayList(time,currentDate,currentName);
+
     }
 
 public void getTime(String id)
@@ -155,10 +177,6 @@ public void getTime(String id)
 
 }
 
-    public void arrayList(String c,String d,String n)
-    {
-
-    }
 
 
 

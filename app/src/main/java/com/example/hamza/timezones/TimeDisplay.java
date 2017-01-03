@@ -8,13 +8,29 @@ public class TimeDisplay {
 
 
     private String mClock;
+    private String mDate;
     private String mRegion;
 
 
-    public TimeDisplay(String clock,String region)
+    public TimeDisplay(String c,String d,String r)
     {
-        clock=mClock;
-        region=mRegion;
+        c=mClock;
+        r=mRegion;
+        d=mDate;
+    }
+
+    public String getClockTime()
+    {
+        return mClock;
+    }
+
+    public String getDate()
+    {
+        return mDate;
+    }
+    public String getTimeRegion()
+    {
+        return mRegion;
     }
 
 
