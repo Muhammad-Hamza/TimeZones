@@ -1,6 +1,7 @@
 package com.example.hamza.timezones;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -72,7 +73,7 @@ public class MainActivity extends FragmentActivity implements TimeFragment.onSom
 
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frgmnt);
         getTime(s);
-        greenWichTime();
+       // greenWichTime();
 
 /**
         int TimeZoneOffset = tz.getRawOffset()
@@ -109,41 +110,55 @@ public class MainActivity extends FragmentActivity implements TimeFragment.onSom
 
         String time = sdf.format(cal.getTime());
         TextView crrntTime = (TextView) findViewById(R.id.current);
-        crrntTime.setText(CurrentTimeZoneName);
+        crrntTime.setTextColor(Color.parseColor("#B33A3A"));
+        crrntTime.setText(sdf.format(cal.getTime()));
         Log.d("Time Test",time);
     }
 
 public void getTime(String id)
 {
+    Calendar current = Calendar.getInstance();
+    TimeZone tzCurrent = current.getTimeZone();
+    String currentName = tzCurrent.getDisplayName() ;
+
 
     TimeZone tz = TimeZone.getTimeZone(id);
-    if(tz == TimeZone.getDefault())
+    String timeZoneName = tz.getDisplayName();
+
+
+    if(timeZoneName == currentName)
     {
+        greenWichTime();
 
     }
-    String timeZoneName = tz.getDisplayName();
-    Calendar calTZ = new GregorianCalendar(tz);
-    calTZ.setTimeInMillis(new Date().getTime());
-    Calendar cal = Calendar.getInstance();
-    cal.set(Calendar.YEAR, calTZ.get(Calendar.YEAR));
-    cal.set(Calendar.MONTH, calTZ.get(Calendar.MONTH));
-    cal.set(Calendar.DAY_OF_MONTH, calTZ.get(Calendar.DAY_OF_MONTH));
-    cal.set(Calendar.HOUR_OF_DAY, calTZ.get(Calendar.HOUR_OF_DAY));
-    cal.set(Calendar.MINUTE, calTZ.get(Calendar.MINUTE));
-    cal.set(Calendar.SECOND, calTZ.get(Calendar.SECOND));
-    cal.set(Calendar.MILLISECOND, calTZ.get(Calendar.MILLISECOND));
-    String time = sdf.format(cal.getTime());
-    TextView tzname = (TextView) findViewById(R.id.tzname);
-    tzname.setText(timeZoneName);
-    TextView zoneName = (TextView) findViewById(R.id.tz);
-    zoneName.setText(time);
+    else {
+        Log.d("working","fine");
 
+        Calendar calTZ = new GregorianCalendar(tz);
+        calTZ.setTimeInMillis(new Date().getTime());
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, calTZ.get(Calendar.YEAR));
+        cal.set(Calendar.MONTH, calTZ.get(Calendar.MONTH));
+        cal.set(Calendar.DAY_OF_MONTH, calTZ.get(Calendar.DAY_OF_MONTH));
+        cal.set(Calendar.HOUR_OF_DAY, calTZ.get(Calendar.HOUR_OF_DAY));
+        cal.set(Calendar.MINUTE, calTZ.get(Calendar.MINUTE));
+        cal.set(Calendar.SECOND, calTZ.get(Calendar.SECOND));
+        cal.set(Calendar.MILLISECOND, calTZ.get(Calendar.MILLISECOND));
+        String time = sdf.format(cal.getTime());
+        TextView tzname = (TextView) findViewById(R.id.tzname);
+        tzname.setText(timeZoneName);
+        TextView zoneName = (TextView) findViewById(R.id.tz);
+        zoneName.setText(time);
+    }
     //
 
 
 }
 
+    public void arrayList(String c,String d,String n)
+    {
 
+    }
 
 
 

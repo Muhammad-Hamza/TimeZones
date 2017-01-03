@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:textSize="40sp"
-        android:id="@+id/parentText"
+        android:id="@+id/clock"
 
         />
 <TextView
@@ -21,7 +21,7 @@
     android:layout_height="wrap_content"
     android:textSize="15sp"
     android:layout_marginLeft="13dp"
-    android:id="@+id/child1"
+    android:id="@+id/Date"
 
 
     />
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:textSize="15sp"
         android:layout_marginLeft="13sp"
-        android:id="@+id/child2"/>
+        android:id="@+id/Name"/>
 
 
 </LinearLayout>
