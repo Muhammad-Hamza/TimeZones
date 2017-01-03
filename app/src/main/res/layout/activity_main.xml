@@ -42,6 +42,10 @@
         android:layout_height="wrap_content"
 
         android:id="@+id/tzname"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/current"/>
 </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>
 

@@ -6,6 +6,8 @@ import android.content.Context;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
+
+import java.util.GregorianCalendar;
 import android.net.Uri;
 import java.util.Calendar;
 import android.os.Bundle;
@@ -25,12 +27,12 @@ public class TimeFragment extends Fragment  {
 
     private long miliSeconds;
     private Date resultDate;
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
 
 
     public interface onSomeEventListener {
 
-        public void someEvent(String t,String n,TimeZone tz);
+        public void someEvent(String s);
     }
 onSomeEventListener someEventListener;
     @Override
@@ -72,18 +74,7 @@ AutoCompleteTextView countries;
 
 
               final String selectedregion = countries.getText().toString();
-                TimeZone tz = TimeZone.getTimeZone(selectedregion);
-                String timeZoneName = tz.getDisplayName();
-                int TimeZoneOffset = tz.getRawOffset()
-                        / (60 * 1000);
-                int hrs = TimeZoneOffset / 60;
-                int mins = TimeZoneOffset % 60;
-                miliSeconds = miliSeconds + tz.getRawOffset();
-                resultDate = new Date(miliSeconds);
-
-                String timename = sdf.format(resultDate);
-
-                someEventListener.someEvent(timename,timeZoneName,tz);
+               someEventListener.someEvent(selectedregion);
                 getActivity().onBackPressed();
 
             }
