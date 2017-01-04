@@ -1,5 +1,7 @@
 package com.example.hamza.timezones;
 
+import android.util.Log;
+
 /**
  * Created by hamza on 1/1/2017.
  */
@@ -14,13 +16,17 @@ public class TimeDisplay {
 
     public TimeDisplay(String c,String d,String r)
     {
-        c=mClock;
-        r=mRegion;
-        d=mDate;
+       mClock= c;
+        mDate = d;
+        mRegion = r;
+
+
     }
 
     public String getClockTime()
     {
+        Log.d("CLock",mClock);
+
         return mClock;
     }
 

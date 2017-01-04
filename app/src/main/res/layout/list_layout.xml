@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:textSize="40sp"
+        android:textSize="50sp"
         android:id="@+id/clock"
 
         />
@@ -20,7 +20,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:textSize="15sp"
-    android:layout_marginLeft="13dp"
+    android:layout_marginLeft="15dp"
     android:id="@+id/date"
 
 
@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="15sp"
-        android:layout_marginLeft="13sp"
+        android:layout_marginLeft="15sp"
         android:id="@+id/name"/>
 
 

@@ -23,6 +23,7 @@ import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
 import static com.example.hamza.timezones.R.string.timezone;
+import static java.lang.Math.E;
 
 public class MainActivity extends FragmentActivity implements TimeFragment.onSomeEventListener {
 
@@ -36,19 +37,63 @@ public class MainActivity extends FragmentActivity implements TimeFragment.onSom
 
 
 
-
-
-
-//ArrayList Method using to get the time,date,and region with respect to every id and add it to the list
-
-    public void arrayList(String c,String d,String n)
+    public void addTime(String c,String d,String t)
     {
+        timeList.add(new TimeDisplay(c,d,t));
+    }
 
-        timeList.add(new TimeDisplay(c,d,n));
 
-        ;
+
+
+
+
+
+    public void getTime(String id)
+    {
+        Calendar current = Calendar.getInstance();
+        TimeZone tzCurrent = current.getTimeZone();
+        String currentName = tzCurrent.getDisplayName() ;
+
+
+        TimeZone tz = TimeZone.getTimeZone(id);
+        String timeZoneName = tz.getDisplayName();
+
+
+        if(timeZoneName == currentName)
+        {
+            greenWichTime();
+
+        }
+        else
+            Log.d("working","fine");
+
+            Calendar calTZ = new GregorianCalendar(tz);
+            calTZ.setTimeInMillis(new Date().getTime());
+            Calendar cal = Calendar.getInstance();
+            cal.set(Calendar.YEAR, calTZ.get(Calendar.YEAR));
+            cal.set(Calendar.MONTH, calTZ.get(Calendar.MONTH));
+            cal.set(Calendar.DAY_OF_MONTH, calTZ.get(Calendar.DAY_OF_MONTH));
+            cal.set(Calendar.HOUR_OF_DAY, calTZ.get(Calendar.HOUR_OF_DAY));
+            cal.set(Calendar.MINUTE, calTZ.get(Calendar.MINUTE));
+            cal.set(Calendar.SECOND, calTZ.get(Calendar.SECOND));
+            cal.set(Calendar.MILLISECOND, calTZ.get(Calendar.MILLISECOND));
+            String time = clock.format(cal.getTime());
+            String regionDate = date.format(cal.getTime());
+
+        addTime(time,regionDate,timeZoneName);
+            // TextView tzname = (TextView) findViewById(R.id.tzname);
+            //  tzname.setText(timeZoneName);
+            //  TextView zoneName = (TextView) findViewById(R.id.tz);
+            // zoneName.setText(time);
+
+
+
+        CustomArrayAdapter timeZoneArrayAdatpter = new CustomArrayAdapter(this,timeList);
+        ListView listView = (ListView) findViewById(R.id.list);
+        listView.setAdapter(timeZoneArrayAdatpter);
 
     }
+
 
 
 
@@ -58,32 +103,19 @@ public class MainActivity extends FragmentActivity implements TimeFragment.onSom
         setContentView(R.layout.activity_main);
 
 
-
-       // ListView listView = (ListView) findViewById(R.id.list);
-      //  listView.setAdapter();
-
-
-
         addTimeZone = (FloatingActionButton) findViewById(R.id.addtimezone);
-
-
         addTimeZone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction().addToBackStack("");
                 TimeFragment frgment = new TimeFragment();
                 fragmentTransaction.add(R.id.frgmnt,frgment,"TimeFragment");
                 fragmentTransaction.commit();
-
-
-
-
-
-
             }
         });
+
+
 
 
     }
@@ -133,50 +165,9 @@ public class MainActivity extends FragmentActivity implements TimeFragment.onSom
         String time = clock.format(cal.getTime());
         String currentDate = date.format(cal.getTime());
 
-        arrayList(time,currentDate,currentName);
+
 
     }
-
-public void getTime(String id)
-{
-    Calendar current = Calendar.getInstance();
-    TimeZone tzCurrent = current.getTimeZone();
-    String currentName = tzCurrent.getDisplayName() ;
-
-
-    TimeZone tz = TimeZone.getTimeZone(id);
-    String timeZoneName = tz.getDisplayName();
-
-
-    if(timeZoneName == currentName)
-    {
-        greenWichTime();
-
-    }
-    else {
-        Log.d("working","fine");
-
-        Calendar calTZ = new GregorianCalendar(tz);
-        calTZ.setTimeInMillis(new Date().getTime());
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.YEAR, calTZ.get(Calendar.YEAR));
-        cal.set(Calendar.MONTH, calTZ.get(Calendar.MONTH));
-        cal.set(Calendar.DAY_OF_MONTH, calTZ.get(Calendar.DAY_OF_MONTH));
-        cal.set(Calendar.HOUR_OF_DAY, calTZ.get(Calendar.HOUR_OF_DAY));
-        cal.set(Calendar.MINUTE, calTZ.get(Calendar.MINUTE));
-        cal.set(Calendar.SECOND, calTZ.get(Calendar.SECOND));
-        cal.set(Calendar.MILLISECOND, calTZ.get(Calendar.MILLISECOND));
-        String time = sdf.format(cal.getTime());
-        TextView tzname = (TextView) findViewById(R.id.tzname);
-        tzname.setText(timeZoneName);
-        TextView zoneName = (TextView) findViewById(R.id.tz);
-        zoneName.setText(time);
-    }
-    //
-
-
-}
-
 
 
 
