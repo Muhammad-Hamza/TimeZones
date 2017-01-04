@@ -101,14 +101,18 @@ public class MainActivity extends FragmentActivity implements TimeFragment.onSom
 
 
         //FAB onclick launches fragment
+
         addTimeZone = (FloatingActionButton) findViewById(R.id.addtimezone);
         addTimeZone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction().addToBackStack("");
                 TimeFragment frgment = new TimeFragment();
-                fragmentTransaction.add(R.id.frgmnt,frgment,"TimeFragment");
+                fragmentTransaction.replace(R.id.frgmnt,frgment,"TimeFragment");
+                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
         });
@@ -124,17 +128,11 @@ public class MainActivity extends FragmentActivity implements TimeFragment.onSom
     public void someEvent(String s){
 
 
-        if(s!= null) {
+
             getTime(s);
-        }
-        else
-        {
-            Toast.makeText(getApplicationContext(),"Please Select a TimeZone",Toast.LENGTH_SHORT).show();
-        }
+
 
     }
-
-
 
 
 

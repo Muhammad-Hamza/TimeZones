@@ -74,7 +74,7 @@ AutoCompleteTextView countries;
 
 
               final String selectedregion = countries.getText().toString();
-                Log.d("region",selectedregion);
+
                someEventListener.someEvent(selectedregion);
                 getActivity().onBackPressed();
 
