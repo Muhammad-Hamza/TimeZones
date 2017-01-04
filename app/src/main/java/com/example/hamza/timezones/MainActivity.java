@@ -1,6 +1,8 @@
 package com.example.hamza.timezones;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentActivity;
@@ -11,8 +13,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -35,7 +39,7 @@ public class MainActivity extends FragmentActivity implements TimeFragment.onSom
     ArrayList<TimeDisplay> timeList = new ArrayList<TimeDisplay>();
 
 
-
+//Add time method takes clock,date,region as input and add into arraylist
 
     public void addTime(String c,String d,String t)
     {
@@ -46,27 +50,11 @@ public class MainActivity extends FragmentActivity implements TimeFragment.onSom
 
 
 
-
-
+    //Get time method gets the time of the timezone id received
     public void getTime(String id)
     {
-        Calendar current = Calendar.getInstance();
-        TimeZone tzCurrent = current.getTimeZone();
-        String currentName = tzCurrent.getDisplayName() ;
-
-
         TimeZone tz = TimeZone.getTimeZone(id);
         String timeZoneName = tz.getDisplayName();
-
-
-        if(timeZoneName == currentName)
-        {
-            greenWichTime();
-
-        }
-        else
-            Log.d("working","fine");
-
             Calendar calTZ = new GregorianCalendar(tz);
             calTZ.setTimeInMillis(new Date().getTime());
             Calendar cal = Calendar.getInstance();
@@ -81,16 +69,25 @@ public class MainActivity extends FragmentActivity implements TimeFragment.onSom
             String regionDate = date.format(cal.getTime());
 
         addTime(time,regionDate,timeZoneName);
-            // TextView tzname = (TextView) findViewById(R.id.tzname);
-            //  tzname.setText(timeZoneName);
-            //  TextView zoneName = (TextView) findViewById(R.id.tz);
-            // zoneName.setText(time);
 
-
-
-        CustomArrayAdapter timeZoneArrayAdatpter = new CustomArrayAdapter(this,timeList);
+        final CustomArrayAdapter timeZoneArrayAdatpter = new CustomArrayAdapter(this,timeList);
         ListView listView = (ListView) findViewById(R.id.list);
         listView.setAdapter(timeZoneArrayAdatpter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> a, View v, final int position, long id) {
+                AlertDialog.Builder dialogBox = new AlertDialog.Builder(MainActivity.this);
+                dialogBox.setTitle("Delete?");
+                dialogBox.setMessage("Are you sure you want to delete ");
+                dialogBox.setNegativeButton("Cancel", null);
+                dialogBox.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                       timeList.remove(position);
+                        timeZoneArrayAdatpter.notifyDataSetChanged();
+                    }});
+                dialogBox.show();
+            }
+        });
 
     }
 
@@ -103,6 +100,7 @@ public class MainActivity extends FragmentActivity implements TimeFragment.onSom
         setContentView(R.layout.activity_main);
 
 
+        //FAB onclick launches fragment
         addTimeZone = (FloatingActionButton) findViewById(R.id.addtimezone);
         addTimeZone.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,54 +118,22 @@ public class MainActivity extends FragmentActivity implements TimeFragment.onSom
 
     }
 
+    //Interface To communicate with fragment and receive the timezone id
+
     @Override
     public void someEvent(String s){
 
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frgmnt);
-        getTime(s);
-       // greenWichTime();
 
-/**
-        int TimeZoneOffset = tz.getRawOffset()
-                / (60 * 1000);
-        int hrs = TimeZoneOffset / 60;
-        int mins = TimeZoneOffset % 60;
-       TextView time = (TextView) findViewById(R.id.tzname);
-        time.setText(n);
-       TextView zoneName = (TextView) findViewById(R.id.tz);
-        zoneName.setText(t+" : GMT " + hrs + "."
-                + mins);**/
-     //   greenWichTime();
-
-
+        if(s!= null) {
+            getTime(s);
+        }
+        else
+        {
+            Toast.makeText(getApplicationContext(),"Please Select a TimeZone",Toast.LENGTH_SHORT).show();
+        }
 
     }
-   private void  greenWichTime()
-    {
-       Calendar current = Calendar.getInstance();
-        miliSeconds = current.getTimeInMillis();
 
-        TimeZone tzCurrent = current.getTimeZone();
-        String currentName = tzCurrent.getDisplayName() ;
-
-        String CurrentTimeZoneName = tzCurrent.getID();
-        Calendar calTZ = new GregorianCalendar(tzCurrent);
-        calTZ.setTimeInMillis(new Date().getTime());
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.YEAR, calTZ.get(Calendar.YEAR));
-        cal.set(Calendar.MONTH, calTZ.get(Calendar.MONTH));
-        cal.set(Calendar.DAY_OF_MONTH, calTZ.get(Calendar.DAY_OF_MONTH));
-        cal.set(Calendar.HOUR_OF_DAY, calTZ.get(Calendar.HOUR_OF_DAY));
-        cal.set(Calendar.MINUTE, calTZ.get(Calendar.MINUTE));
-        cal.set(Calendar.SECOND, calTZ.get(Calendar.SECOND));
-        cal.set(Calendar.MILLISECOND, calTZ.get(Calendar.MILLISECOND));
-
-        String time = clock.format(cal.getTime());
-        String currentDate = date.format(cal.getTime());
-
-
-
-    }
 
 
 

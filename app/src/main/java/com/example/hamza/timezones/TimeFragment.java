@@ -52,8 +52,7 @@ AutoCompleteTextView countries;
     Button addButton;
     String[] allCountries = TimeZone.getAvailableIDs();
 
-            //{"Pakistan","Germany","England","Indonesia","Australia","India","China","United Arab Emirates"
-   // ,"Russia","Iran"};
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -75,6 +74,7 @@ AutoCompleteTextView countries;
 
 
               final String selectedregion = countries.getText().toString();
+                Log.d("region",selectedregion);
                someEventListener.someEvent(selectedregion);
                 getActivity().onBackPressed();
 

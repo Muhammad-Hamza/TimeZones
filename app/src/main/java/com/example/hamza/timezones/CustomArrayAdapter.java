@@ -37,7 +37,7 @@ public View getView(int position, View convertView, ViewGroup parent)
 
               TimeDisplay currentPosition = getItem(position);
               Calendar current = Calendar.getInstance();
-              TimeZone tzCurrent = current.getTimeZone();
+              TimeZone tzCurrent = current.getTimeZone().getDefault();
               String currentName = tzCurrent.getDisplayName() ;
 
 
