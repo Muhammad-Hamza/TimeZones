@@ -14,28 +14,25 @@ public class TimeDisplay {
     private String mRegion;
 
 
-    public TimeDisplay(String c,String d,String r)
-    {
-       mClock= c;
+    public TimeDisplay(String c, String d, String r) {
+        mClock = c;
         mDate = d;
         mRegion = r;
 
 
     }
 
-    public String getClockTime()
-    {
-        Log.d("CLock",mClock);
+    public String getClockTime() {
+        Log.d("CLock", mClock);
 
         return mClock;
     }
 
-    public String getDate()
-    {
+    public String getDate() {
         return mDate;
     }
-    public String getTimeRegion()
-    {
+
+    public String getTimeRegion() {
         return mRegion;
     }
 
